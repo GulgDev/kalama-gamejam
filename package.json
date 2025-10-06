@@ -1,0 +1,14 @@
+{
+  "name": "kalama-gamejam",
+  "version": "1.0.0",
+  "scripts": {
+    "build:resources": "w4 png2src -t res/template.ts res/door.png res/frog.png res/frog-eyes.png res/frog-walking-1.png res/frog-walking-2.png res/frog-walking-eyes.png res/frog-jumping.png res/frog-jumping-eyes.png res/frog-falling.png res/frog-falling-eyes.png res/frog-sleeping-1.png res/frog-sleeping-1-eyes.png res/frog-sleeping-2.png res/frog-sleeping-2-eyes.png res/egg.png res/egg8.png -o src/sprites.ts",
+    "build": "npm run build:resources && asc --target release",
+    "build:debug": "asc --target debug",
+    "start": "w4 run build/cart.wasm",
+    "dev": "npm run build:resources && w4 watch --no-qr"
+  },
+  "devDependencies": {
+    "assemblyscript": "^0.21.3"
+  }
+}
