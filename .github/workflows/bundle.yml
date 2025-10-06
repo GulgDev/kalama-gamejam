@@ -23,7 +23,7 @@ jobs:
         npm install -g wasm4
         npm install
         npm run build
-        w4 bundle build/cart.wasm --html dist/index.html --title Freg
+        w4 bundle build/cart.wasm --html dist/index.html --title Fregg
 
     - name: Copy built files to Github Pages
       run: |
