@@ -1,6 +1,6 @@
-# onigiri-gamejam
+# Fregg
 
-A game written in AssemblyScript for the [WASM-4](https://wasm4.org) fantasy console.
+A game written in AssemblyScript for the [WASM-4](https://wasm4.org) fantasy console. This game is part of [@kala-telo](https://github.com/kala-telo)'s GameJam.
 
 ## Building
 
