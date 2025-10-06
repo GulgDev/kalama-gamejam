@@ -1,0 +1,36 @@
+name: Bundle the game and publish it to GitHub pages
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18.x
+
+    - name: Build
+      run: |
+        npm install
+        npm run build
+        w4 bundle build/cart.wasm --html dist/index.html --title Freg
+
+    - name: Copy built files to Github Pages
+      run: |
+        git config user.name 'GitHub Action'
+        git config user.email 'action@github.com'
+        git branch -f gh-pages HEAD
+        git checkout gh-pages --
+        date > dist/date.txt
+        git add --force dist
+        git commit -m "Automatic build"
+        git push -f origin `git subtree split -P dist`:refs/heads/gh-pages
