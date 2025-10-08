@@ -40,7 +40,7 @@ export class Level1 extends TutorialLevel {
 
     this.wait(120);
 
-    this.showHint("That's more like it.");
+    this.showHint("That's better.");
     this.showHint("Have you completed\nthe order yet?");
 
     this.wait(180);
