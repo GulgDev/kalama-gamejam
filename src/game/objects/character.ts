@@ -169,7 +169,7 @@ export class Character extends Body<CharacterState> {
     );
   }
 
-  private prevVy: f32 = this.vy;
+  private prevY: f32 = this.y;
   update(): void {
     this.vx = 0;
     if (GOD_MODE) this.vy = 0;
@@ -177,12 +177,12 @@ export class Character extends Body<CharacterState> {
 
     super.update();
 
-    if (this.vy > 0) this.setState(CharacterState.FALLING);
-    else if (this.vy === 0 && this.prevVy === 0)
+    if (this.y > this.prevY) this.setState(CharacterState.FALLING);
+    else if (this.y === this.prevY && this.vy === 0)
       this.setState(
         this.vx === 0 ? CharacterState.IDLE : CharacterState.WALKING
       );
-    this.prevVy = this.vy;
+    this.prevY = this.y;
 
     switch (this.state) {
       case CharacterState.WALKING:
