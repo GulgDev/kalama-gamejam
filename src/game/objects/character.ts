@@ -104,6 +104,7 @@ export class Character extends Body<CharacterState> {
     public readonly isPrimary: boolean
   ) {
     super(world, x, y, CharacterState.IDLE, CHARACTER_TRANSITIONS);
+    this.prevY = y;
   }
 
   private processInput(): void {
@@ -169,7 +170,7 @@ export class Character extends Body<CharacterState> {
     );
   }
 
-  private prevY: f32 = this.y;
+  private prevY: f32;
   update(): void {
     this.vx = 0;
     if (GOD_MODE) this.vy = 0;
