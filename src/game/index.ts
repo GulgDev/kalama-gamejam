@@ -15,7 +15,7 @@ GAME_TRANSITIONS.set(GameState.TITLE, [GameState.LEVELS]);
 GAME_TRANSITIONS.set(GameState.LEVELS, [GameState.LEVEL]);
 GAME_TRANSITIONS.set(GameState.LEVEL, [GameState.LEVELS]);
 
-const UNLOCK_ALL = true;
+const UNLOCK_ALL = false;
 
 export class Game extends StateMachine<GameState> {
   private unlockedLevel: u32 = UNLOCK_ALL ? LEVEL_COUNT - 1 : 0;
@@ -23,6 +23,11 @@ export class Game extends StateMachine<GameState> {
 
   constructor() {
     super(GameState.TITLE, GAME_TRANSITIONS);
+    if (!UNLOCK_ALL) {
+      const ptr = memory.data(sizeof<u32>());
+      w4.diskr(ptr, sizeof<u32>());
+      this.unlockedLevel = load<u32>(ptr);
+    }
   }
 
   prevGamepad: u8 =
@@ -129,8 +134,12 @@ export class Game extends StateMachine<GameState> {
     if (
       this.selectedLevel + 1 > this.unlockedLevel &&
       this.selectedLevel < LEVEL_COUNT - 1
-    )
+    ) {
       this.unlockedLevel = this.selectedLevel + 1;
+      const ptr = memory.data(sizeof<u32>());
+      store<u32>(ptr, this.unlockedLevel);
+      w4.diskw(ptr, sizeof<u32>());
+    }
   }
 
   nextLevel(): void {
