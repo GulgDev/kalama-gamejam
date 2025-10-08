@@ -22,18 +22,18 @@ export const TILE_SIZE: u32 = 16;
 
 const CAMERA_FOLLOW_THRESHOLD: f32 = 0.2;
 
-export enum TileType {
-  AIR,
-  SPAWN_POINT,
-  BLOCK,
-  EGGABLE_BLOCK,
-  PLATFORM,
-  GATE,
-  SHADOW_GATE,
-  DOOR,
+export namespace TileType {
+  export const AIR: u8 = 0;
+  export const SPAWN_POINT: u8 = 1;
+  export const BLOCK: u8 = 2;
+  export const EGGABLE_BLOCK: u8 = 3;
+  export const PLATFORM: u8 = 4;
+  export const GATE: u8 = 5;
+  export const SHADOW_GATE: u8 = 6;
+  export const DOOR: u8 = 7;
 }
 
-enum WorldState {
+export enum WorldState {
   PLAYING,
   PAUSED,
   LEVEL_COMPLETED,
@@ -48,7 +48,7 @@ WORLD_TRANSITIONS.set(WorldState.PAUSED, [WorldState.PLAYING]);
 WORLD_TRANSITIONS.set(WorldState.LEVEL_COMPLETED, [WorldState.PLAYING]);
 
 export class World extends StateMachine<WorldState> {
-  private grid: StaticArray<StaticArray<TileType>> = [];
+  private grid: StaticArray<StaticArray<u8>> = [];
 
   private doors: StaticArray<StaticArray<u32>> = [];
 
@@ -98,11 +98,11 @@ export class World extends StateMachine<WorldState> {
     this.game.completeLevel();
   }
 
-  getTileAt(x: i32, y: i32): TileType {
-    if (x < 0 || y < 0) return 0;
-    if (y >= this.grid.length) return 0;
+  getTileAt(x: i32, y: i32): u8 {
+    if (x < 0 || y < 0) return TileType.AIR;
+    if (y >= this.grid.length) return TileType.AIR;
     const row = this.grid[y];
-    if (x >= row.length) return 0;
+    if (x >= row.length) return TileType.AIR;
     return row[x];
   }
 

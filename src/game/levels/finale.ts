@@ -1,19 +1,11 @@
 import * as w4 from "../../wasm4";
 import { World } from "../world";
-import { parseLayout, TutorialLevel } from "./level";
+import { level_1 } from "./layout";
+import { TutorialLevel } from "./level";
 
 export class Finale extends TutorialLevel {
   constructor(world: World) {
-    super(
-      world,
-      1,
-      parseLayout(`
-.........@...@
-........##..##
-*.............
-########&#####
-`)
-    );
+    super(world, 1, level_1);
   }
 
   private showLevel: boolean = false;

@@ -53,7 +53,7 @@ import {
   frogHeight,
   frogWidth,
 } from "../../sprites";
-import { TILE_SIZE, TileType, World } from "../world";
+import { TILE_SIZE, World } from "../world";
 import { Body } from "../body";
 
 const SPEED: f32 = 1.1;
@@ -144,14 +144,14 @@ export class Character extends Body<CharacterState> {
     }
   }
 
-  getTileAt(): TileType {
+  getTileAt(): u8 {
     return this.world.getTileAt(
       <u32>nearest(this.x / <f32>TILE_SIZE - 0.5),
       <u32>nearest(this.y / <f32>TILE_SIZE - 0.5)
     );
   }
 
-  getTileBelow(): TileType {
+  getTileBelow(): u8 {
     return this.world.getTileAt(
       <u32>nearest(this.x / <f32>TILE_SIZE - 0.5),
       <u32>nearest(this.y / <f32>TILE_SIZE + 0.5)

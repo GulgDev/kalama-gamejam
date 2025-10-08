@@ -1,3 +1,4 @@
 /build
 /node_modules
 /src/sprites.ts
+/src/game/levels/layout.ts

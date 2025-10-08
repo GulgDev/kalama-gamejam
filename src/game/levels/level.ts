@@ -4,46 +4,10 @@ import { TileType, World } from "../world";
 export abstract class Level {
   constructor(
     readonly eggs: u32,
-    readonly grid: StaticArray<StaticArray<TileType>>
+    readonly grid: StaticArray<StaticArray<u8>>
   ) {}
 
   update(): void {}
-}
-
-export function parseLayout(
-  layout: string
-): StaticArray<StaticArray<TileType>> {
-  return StaticArray.fromArray(
-    layout
-      .trim()
-      .split("\n")
-      .map<StaticArray<TileType>>((row) =>
-        StaticArray.fromArray(
-          row
-            .trim()
-            .split("")
-            .map<TileType>((tile) =>
-              tile === "."
-                ? TileType.AIR
-                : tile === "*"
-                ? TileType.SPAWN_POINT
-                : tile === "#"
-                ? TileType.BLOCK
-                : tile === "&"
-                ? TileType.EGGABLE_BLOCK
-                : tile === "-"
-                ? TileType.PLATFORM
-                : tile === "%"
-                ? TileType.GATE
-                : tile === "$"
-                ? TileType.SHADOW_GATE
-                : tile === "@"
-                ? TileType.DOOR
-                : unreachable()
-            )
-        )
-      )
-  );
 }
 
 const FRAMES_PER_CHARACTER = 5;
@@ -58,7 +22,7 @@ export abstract class TutorialLevel extends Level {
   constructor(
     protected readonly world: World,
     eggs: u32,
-    grid: StaticArray<StaticArray<TileType>>
+    grid: StaticArray<StaticArray<u8>>
   ) {
     super(eggs, grid);
   }

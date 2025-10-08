@@ -15,7 +15,7 @@ GAME_TRANSITIONS.set(GameState.TITLE, [GameState.LEVELS]);
 GAME_TRANSITIONS.set(GameState.LEVELS, [GameState.LEVEL]);
 GAME_TRANSITIONS.set(GameState.LEVEL, [GameState.LEVELS]);
 
-const UNLOCK_ALL = false;
+const UNLOCK_ALL = true;
 
 export class Game extends StateMachine<GameState> {
   private unlockedLevel: u32 = UNLOCK_ALL ? LEVEL_COUNT - 1 : 0;
